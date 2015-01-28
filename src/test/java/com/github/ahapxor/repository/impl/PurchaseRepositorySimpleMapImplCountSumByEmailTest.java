@@ -25,7 +25,7 @@ public class PurchaseRepositorySimpleMapImplCountSumByEmailTest extends BasePurc
 
         final Integer amount1 = 10;
         final Integer amount2 = 20;
-        final String email = person.email();
+        final String email = getPerson().email();
         Purchase purchase1 = generatePurchaseWithAmountAndEmail(email, amount1);
         repository.save(purchase1);
         Purchase purchase2 = generatePurchaseWithAmountAndEmail(email, amount2);

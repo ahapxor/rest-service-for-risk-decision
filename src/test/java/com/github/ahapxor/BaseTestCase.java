@@ -7,13 +7,15 @@ import org.junit.Before;
 
 public class BaseTestCase {
     protected Fairy fairy;
-    protected Person person;
     protected BaseProducer producer;
+
+    protected Person getPerson() {
+        return fairy.person();
+    }
 
     @Before
     public void setUp() throws Exception {
         fairy = Fairy.create();
-        person = fairy.person();
         producer = fairy.baseProducer();
     }
 

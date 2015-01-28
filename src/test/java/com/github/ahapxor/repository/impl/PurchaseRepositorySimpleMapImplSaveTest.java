@@ -30,13 +30,16 @@ public class PurchaseRepositorySimpleMapImplSaveTest extends BasePurchaseReposit
 
         repository.save(newPurchase1);
         repository.save(newPurchase2);
-        final Collection<Purchase> purchases = repository.findByEmail(newPurchase1.getEmail());
+        final Collection<Purchase> purchases1 = repository.findByEmail(newPurchase1.getEmail());
+        final Collection<Purchase> purchases2 = repository.findByEmail(newPurchase1.getEmail());
 
-        assertNotNull(purchases);
-        assertFalse(purchases.isEmpty());
-        assertEquals(1, purchases.size());
-        assertTrue(purchases.contains(newPurchase1));
-        assertTrue(purchases.contains(newPurchase2));
+        assertFalse(purchases1.isEmpty());
+        assertEquals(1, purchases1.size());
+        assertTrue(purchases1.contains(newPurchase1));
+
+        assertFalse(purchases2.isEmpty());
+        assertEquals(1, purchases2.size());
+        assertTrue(purchases2.contains(newPurchase1));
     }
 
     @Test

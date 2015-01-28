@@ -25,7 +25,7 @@ public class PurchaseRepositorySimpleMapImplFindByEmailTest extends BasePurchase
 
     @Test
     public void testInCaseOfSearchingForNonExistingRecordEmptyCollectionShouldBeReturned() throws Exception {
-        final Collection<Purchase> purchases = repository.findByEmail(person.email());
+        final Collection<Purchase> purchases = repository.findByEmail(getPerson().email());
 
         assertTrue(purchases.isEmpty());
     }

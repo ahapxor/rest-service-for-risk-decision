@@ -17,14 +17,14 @@ public class BasePurchaseRepositorySimpleMapImplTest extends BaseTestCase{
     }
 
     protected Purchase generatePurchaseWithAmount(Integer amount) {
-        return generatePurchaseWithAmountAndEmail(person.email(), amount);
+        return generatePurchaseWithAmountAndEmail(getPerson().email(), amount);
     }
 
     protected Purchase generatePurchaseWithAmountAndEmail(String email, Integer amount) {
         return new Purchase(
                 email,
-                person.firstName(),
-                person.lastName(),
+                getPerson().firstName(),
+                getPerson().lastName(),
                 amount
         );
     }
