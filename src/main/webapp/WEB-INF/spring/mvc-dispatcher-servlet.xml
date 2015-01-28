@@ -16,7 +16,6 @@
                 <beans:property name="supportedMediaTypes" >
                     <beans:list>
                         <beans:value>application/json</beans:value>
-                        <beans:value>text/plain</beans:value>
                     </beans:list>
                 </beans:property>
             </beans:bean>
@@ -24,5 +23,5 @@
     </annotation-driven>
     <beans:bean id="restObjectMapper" class="com.github.ahapxor.utils.RestObjectMapper"/>
 
-    <context:component-scan base-package="com.github.ahapxor.controllers" />
+    <context:component-scan base-package="com.github.ahapxor" />
 </beans:beans>
