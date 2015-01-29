@@ -3,7 +3,6 @@ package com.github.ahapxor.utils;
 import com.github.ahapxor.BaseTestCase;
 import com.github.ahapxor.dtos.DecisionDto;
 import com.github.ahapxor.entities.Decision;
-import com.github.ahapxor.utils.ConverterBuilder;
 import org.junit.Test;
 import org.mockito.Mock;
 
