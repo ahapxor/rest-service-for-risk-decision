@@ -1,5 +1,6 @@
 package com.github.ahapxor.services.impl;
 
+import com.github.ahapxor.configuration.PurchaseLimitationsConfig;
 import com.github.ahapxor.entities.Decision;
 import com.github.ahapxor.entities.DecisionDebt;
 import com.github.ahapxor.entities.Purchase;
@@ -13,14 +14,16 @@ import org.springframework.util.StringUtils;
 public class DecisionServiceImpl implements DecisionService {
 
     final private PurchaseRepository purchaseRepository;
+    final private PurchaseLimitationsConfig limitConfig;
 
-    @Autowired public DecisionServiceImpl(final PurchaseRepository purchaseRepository) {
+    @Autowired public DecisionServiceImpl(
+            final PurchaseRepository purchaseRepository,
+            final PurchaseLimitationsConfig limitConfig) {
         this.purchaseRepository = purchaseRepository;
+        this.limitConfig = limitConfig;
     }
 
-    final Integer loyalPurchaseLimit = 10;
-    final Integer maxValidPurchaseAmount = 1000;
-    final Integer debtLimit = 1000;
+
 
     @Override
     public Decision makeDecision(final Purchase purchase) {
@@ -33,15 +36,15 @@ public class DecisionServiceImpl implements DecisionService {
         if(StringUtils.isEmpty(purchase.getEmail())) {
             throw new IllegalArgumentException("purchase.email should have value");
         }
-        if(purchase.getAmount() < loyalPurchaseLimit) {
+        if(purchase.getAmount() < limitConfig.loyalPurchaseLimit()) {
             purchaseRepository.save(purchase);
             return DecisionDebt.OK;
         }
-        if(purchase.getAmount() > maxValidPurchaseAmount) {
+        if(purchase.getAmount() > limitConfig.maxValidPurchaseAmount()) {
             return DecisionDebt.AMOUNT;
         }
         Integer accountSum = purchaseRepository.countSumAmountByEmail(purchase.getEmail());
-        if(purchase.getAmount() + accountSum > debtLimit) {
+        if(purchase.getAmount() + accountSum > limitConfig.debtLimit()) {
             return DecisionDebt.DEBT;
         }
 

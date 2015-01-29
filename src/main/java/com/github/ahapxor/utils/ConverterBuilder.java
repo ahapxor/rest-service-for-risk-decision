@@ -4,11 +4,12 @@ import com.github.ahapxor.dtos.DecisionDto;
 import com.github.ahapxor.dtos.PurchaseDto;
 import com.github.ahapxor.entities.Decision;
 import com.github.ahapxor.entities.Purchase;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
-@Service
+@Component
 public class ConverterBuilder {
     public <TS> ConverterFactory<TS> destination(final Class<TS> destClass) {
         if(destClass == null) {
