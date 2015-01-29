@@ -22,7 +22,7 @@ public class DecisionControllerMakeValidationIntegrationTest extends BaseIntegra
     @Test(expected = ApiErrorException.class)
     public void testPurchaseWithNegativeAmountShouldCauseException() throws Exception {
         Person person = getPerson();
-        PurchaseDto purchaseDto = new PurchaseDto(person.email(), person.firstName(), person.lastName(), 0);
+        PurchaseDto purchaseDto = new PurchaseDto(person.email(), person.firstName(), person.lastName(), -10);
 
         callDecisionMakeApi(purchaseDto);
     }
