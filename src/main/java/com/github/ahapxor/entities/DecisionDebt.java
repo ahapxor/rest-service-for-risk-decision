@@ -1,7 +1,7 @@
 package com.github.ahapxor.entities;
 
 public class DecisionDebt extends Decision {
-    public DecisionDebt() {
+    protected DecisionDebt() {
         super(false, Reason.debt);
     }
 }

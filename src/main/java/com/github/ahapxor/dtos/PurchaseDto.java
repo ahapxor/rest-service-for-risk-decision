@@ -7,12 +7,12 @@ public class PurchaseDto {
     final private String email;
     final private String firstName;
     final private String lastName;
-    final private Integer amount;
+    final private int amount;
 
     @JsonCreator public PurchaseDto(@JsonProperty("email") String email,
                                     @JsonProperty("first_name") String firstName,
                                     @JsonProperty("last_name") String lastName,
-                                    @JsonProperty("amount") Integer amount) {
+                                    @JsonProperty("amount") int amount) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

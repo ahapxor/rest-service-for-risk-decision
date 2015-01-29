@@ -7,6 +7,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DecisionServiceImplMakeDecisionAmountIsRegularTest extends BaseDecisionServiceImplMakeDecisionTest {
@@ -20,6 +21,7 @@ public class DecisionServiceImplMakeDecisionAmountIsRegularTest extends BaseDeci
         Decision decision = decisionService.makeDecision(purchase);
 
         assertEquals(Decision.OK, decision);
+        verify(purchaseRepository).save(purchase);
     }
     @Test
     public void testIfTheAmountIsRegularAndSumMoreThanLimitPurchaseShouldBeRejectedWithReasonDebt() throws Exception {
@@ -41,7 +43,6 @@ public class DecisionServiceImplMakeDecisionAmountIsRegularTest extends BaseDeci
 
         Decision decision = decisionService.makeDecision(purchase);
 
-        assertFalse(decision.isAccepted());
         assertEquals(Decision.DEBT, decision);
     }
 }

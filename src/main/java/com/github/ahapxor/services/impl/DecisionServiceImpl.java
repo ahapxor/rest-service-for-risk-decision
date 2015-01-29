@@ -14,16 +14,16 @@ public class DecisionServiceImpl implements DecisionService {
 
     final private PurchaseRepository purchaseRepository;
 
-    @Autowired public DecisionServiceImpl(PurchaseRepository purchaseRepository) {
+    @Autowired public DecisionServiceImpl(final PurchaseRepository purchaseRepository) {
         this.purchaseRepository = purchaseRepository;
     }
 
-    final Integer minValidPurchaseAmount = 10;
+    final Integer loyalPurchaseLimit = 10;
     final Integer maxValidPurchaseAmount = 1000;
     final Integer debtLimit = 1000;
 
     @Override
-    public Decision makeDecision(Purchase purchase) {
+    public Decision makeDecision(final Purchase purchase) {
         if(purchase == null) {
             throw new IllegalArgumentException("purchase could not be null");
         }
@@ -33,7 +33,8 @@ public class DecisionServiceImpl implements DecisionService {
         if(StringUtils.isEmpty(purchase.getEmail())) {
             throw new IllegalArgumentException("purchase.email should have value");
         }
-        if(purchase.getAmount() < minValidPurchaseAmount) {
+        if(purchase.getAmount() < loyalPurchaseLimit) {
+            purchaseRepository.save(purchase);
             return DecisionDebt.OK;
         }
         if(purchase.getAmount() > maxValidPurchaseAmount) {
@@ -44,6 +45,7 @@ public class DecisionServiceImpl implements DecisionService {
             return DecisionDebt.DEBT;
         }
 
+        purchaseRepository.save(purchase);
         return Decision.OK;
     }
 }

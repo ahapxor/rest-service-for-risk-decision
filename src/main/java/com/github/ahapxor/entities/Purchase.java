@@ -4,9 +4,9 @@ public class Purchase {
     final private String email;
     final private String firstName;
     final private String lastName;
-    final private Integer amount;
+    final private int amount;
 
-    public Purchase(String email, String firstName, String lastName, Integer amount) {
+    public Purchase(String email, String firstName, String lastName, int amount) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,7 +25,7 @@ public class Purchase {
         return lastName;
     }
 
-    public Integer getAmount() {
+    public int getAmount() {
         return amount;
     }
 

@@ -4,5 +4,5 @@ import com.github.ahapxor.entities.Decision;
 import com.github.ahapxor.entities.Purchase;
 
 public interface DecisionService {
-    Decision makeDecision(Purchase purchase);
+    Decision makeDecision(final Purchase purchase);
 }

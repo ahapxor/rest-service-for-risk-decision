@@ -5,8 +5,8 @@ import com.github.ahapxor.entities.Purchase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class DecisionServiceImplMakeDecisionAmountLessThan10Test extends BaseDecisionServiceImplMakeDecisionTest {
@@ -20,6 +20,7 @@ public class DecisionServiceImplMakeDecisionAmountLessThan10Test extends BaseDec
         Decision decision = decisionService.makeDecision(purchase);
 
         assertEquals(Decision.OK, decision);
+        verify(purchaseRepository).save(purchase);
     }
 
     @Test
@@ -31,7 +32,7 @@ public class DecisionServiceImplMakeDecisionAmountLessThan10Test extends BaseDec
 
         Decision decision = decisionService.makeDecision(purchase);
 
-        assertTrue(decision.isAccepted());
         assertEquals(Decision.OK, decision);
+        verify(purchaseRepository).save(purchase);
     }
 }
