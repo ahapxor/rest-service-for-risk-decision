@@ -10,6 +10,7 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.jfairy.producer.person.Person;
 
 import java.io.IOException;
 
@@ -43,6 +44,25 @@ public abstract class BaseIntegrationTest extends BaseTestCase {
         String decisionJson = EntityUtils.toString(response.getEntity());
 
         return objectMapper.readValue(decisionJson, DecisionDto.class);
+    }
+
+    protected static PurchaseDto createPurchase(){
+        Person person = getPerson();
+        return createPurchase(person.email(), person.firstName(), person.lastName(), producer.randomBetween(100, 500));
+    }
+
+    protected static PurchaseDto createPurchase(int amount){
+        Person person = getPerson();
+        return createPurchase(person.email(), person.firstName(), person.lastName(), amount);
+    }
+
+    protected static PurchaseDto createPurchase(String email, int amount){
+        Person person = getPerson();
+        return createPurchase(email, person.firstName(), person.lastName(), amount);
+    }
+
+    protected static PurchaseDto createPurchase(String email, String firstName, String lastName, int amount){
+        return new PurchaseDto(email, firstName, lastName, amount);
     }
 
     class ApiErrorException extends Exception {}

@@ -8,19 +8,16 @@ import org.junit.Before;
 import org.mockito.MockitoAnnotations;
 
 public class BaseTestCase {
-    protected Fairy fairy;
-    protected BaseProducer producer;
+    protected final static Fairy fairy = Fairy.create();
+    protected final static BaseProducer producer = fairy.baseProducer();
 
-    protected Person getPerson() {
+    protected static Person getPerson() {
         return fairy.person();
     }
 
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-
-        fairy = Fairy.create();
-        producer = fairy.baseProducer();
     }
 
     protected Purchase generatePurchase() {

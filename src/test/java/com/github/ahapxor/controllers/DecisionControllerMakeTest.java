@@ -19,8 +19,7 @@ import static org.mockito.Mockito.when;
 public class DecisionControllerMakeTest extends BaseTestCase {
     @Mock DecisionService decisionServiceMock;
     @Mock ConverterBuilder converterBuilderMock;
-    @Mock
-    ConverterBuilder.ConverterFactory concreteConverterFactoryMock;
+    @Mock ConverterBuilder.ConverterFactory concreteConverterFactoryMock;
     @Mock ConverterBuilder.EntityConverter purchaseConverterMock;
     @Mock ConverterBuilder.EntityConverter decisionConverterMock;
     @Mock PurchaseDto purchaseDtoMock;

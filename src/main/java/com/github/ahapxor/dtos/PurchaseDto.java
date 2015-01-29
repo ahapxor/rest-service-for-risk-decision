@@ -34,4 +34,14 @@ public class PurchaseDto {
     public Integer getAmount() {
         return amount;
     }
+
+    @Override
+    public String toString() {
+        return "PurchaseDto{" +
+                "email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", amount=" + amount +
+                '}';
+    }
 }

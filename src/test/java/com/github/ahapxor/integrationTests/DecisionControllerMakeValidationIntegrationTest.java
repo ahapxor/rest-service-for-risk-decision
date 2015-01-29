@@ -1,29 +1,37 @@
 package com.github.ahapxor.integrationTests;
 
 import com.github.ahapxor.dtos.PurchaseDto;
-import org.jfairy.producer.person.Person;
+import com.tngtech.java.junit.dataprovider.DataProvider;
+import com.tngtech.java.junit.dataprovider.DataProviderRunner;
+import com.tngtech.java.junit.dataprovider.UseDataProvider;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
+@RunWith(DataProviderRunner.class)
 public class DecisionControllerMakeValidationIntegrationTest extends BaseIntegrationTest {
-    @Test(expected = ApiErrorException.class)
-    public void testPurchaseWithEmptyEmailShouldCauseException() throws Exception {
-        Person person = getPerson();
-        PurchaseDto purchaseDto = new PurchaseDto(null, person.firstName(), person.lastName(), producer.randomInt(500));
 
+    @DataProvider
+    public static Object[][] getTestPurchases() {
+        return new Object[][]{
+                {createPurchaseWithEmptyEmail()},
+                {createPurchaseWithZeroAmount()},
+                {createPurchaseWithNegativeAmount()}
+        };
+    }
+
+    @Test(expected = ApiErrorException.class)
+    @UseDataProvider("getTestPurchases")
+    public void testPurchaseFieldsValidation(PurchaseDto purchaseDto) throws Exception {
         callDecisionMakeApi(purchaseDto);
     }
-    @Test(expected = ApiErrorException.class)
-    public void testPurchaseWithZeroAmountShouldCauseException() throws Exception {
-        Person person = getPerson();
-        PurchaseDto purchaseDto = new PurchaseDto(person.email(), person.firstName(), person.lastName(), 0);
 
-        callDecisionMakeApi(purchaseDto);
+    private static PurchaseDto createPurchaseWithEmptyEmail() {
+        return createPurchase(null, producer.randomInt(500));
     }
-    @Test(expected = ApiErrorException.class)
-    public void testPurchaseWithNegativeAmountShouldCauseException() throws Exception {
-        Person person = getPerson();
-        PurchaseDto purchaseDto = new PurchaseDto(person.email(), person.firstName(), person.lastName(), -10);
-
-        callDecisionMakeApi(purchaseDto);
+    private static PurchaseDto createPurchaseWithZeroAmount() {
+        return createPurchase(producer.randomInt(0));
+    }
+    private static PurchaseDto createPurchaseWithNegativeAmount() {
+        return createPurchase(producer.randomInt(-10));
     }
 }
