@@ -1,4 +1,4 @@
-package com.github.ahapxor.com.github.ahapxor.utils;
+package com.github.ahapxor.utils;
 
 import com.github.ahapxor.BaseTestCase;
 import com.github.ahapxor.dtos.DecisionDto;
